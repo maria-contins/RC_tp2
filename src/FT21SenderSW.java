@@ -1,13 +1,8 @@
+import cnss.simulator.Node;
+import ft21.*;
 
 import java.io.File;
 import java.io.RandomAccessFile;
-
-import cnss.simulator.Node;
-import ft21.FT21AbstractSenderApplication;
-import ft21.FT21_AckPacket;
-import ft21.FT21_DataPacket;
-import ft21.FT21_FinPacket;
-import ft21.FT21_UploadPacket;
 
 public class FT21SenderSW extends FT21AbstractSenderApplication {
 

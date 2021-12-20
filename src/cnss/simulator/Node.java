@@ -1,11 +1,11 @@
 package cnss.simulator;
 
+import cnss.simulator.Event.EventType;
+import cnss.simulator.Packet.PacketType;
+
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import cnss.simulator.Event.EventType;
-import cnss.simulator.Packet.PacketType;
 
 
 /**

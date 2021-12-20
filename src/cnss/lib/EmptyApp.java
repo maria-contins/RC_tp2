@@ -3,8 +3,8 @@ package cnss.lib;
 // An application algorithm that does nothing
 
 import cnss.simulator.ApplicationAlgorithm;
-import cnss.simulator.Node;
 import cnss.simulator.DataPacket;
+import cnss.simulator.Node;
 
 public class EmptyApp implements ApplicationAlgorithm {
 

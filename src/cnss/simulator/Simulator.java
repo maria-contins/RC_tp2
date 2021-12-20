@@ -31,6 +31,8 @@ package cnss.simulator;
  * @version 2.0, September 2021                                                            
  */
 
+import cnss.simulator.Event.EventType;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,8 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import cnss.simulator.Event.EventType;
 
 public class Simulator {
 	private String config_file;

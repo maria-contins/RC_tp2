@@ -1,10 +1,10 @@
 package cnss.simulator;
 
+import cnss.simulator.Event.EventType;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
-
-import cnss.simulator.Event.EventType;
 
 /**
  * A <code>Link</code> class that represents a link between two nodes. It

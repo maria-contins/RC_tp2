@@ -4,8 +4,8 @@ import cnss.lib.AbstractApplicationAlgorithm;
 import cnss.simulator.DataPacket;
 import cnss.simulator.Node;
 import ft21.FT21Packet;
-import ft21.FT21Stats;
 import ft21.FT21Packet.PacketType;
+import ft21.FT21Stats;
 
 abstract class FT21AbstractReceiverApplication extends AbstractApplicationAlgorithm {
 

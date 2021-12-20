@@ -1,10 +1,11 @@
 package ft21.recv;
 
-import java.io.*;
-import java.util.*;
+import cnss.simulator.Node;
+import ft21.FT21_ErrorPacket;
 
-import cnss.simulator.*;
-import ft21.*;
+import java.io.FileOutputStream;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class FT21Receiver extends FT21AbstractReceiverApplication {
 

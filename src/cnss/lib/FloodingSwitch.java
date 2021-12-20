@@ -1,10 +1,6 @@
 package cnss.lib;
 
-import cnss.simulator.ControlAlgorithm;
-import cnss.simulator.GlobalParameters;
-import cnss.simulator.Link;
-import cnss.simulator.Node;
-import cnss.simulator.Packet;
+import cnss.simulator.*;
 
 public class FloodingSwitch implements ControlAlgorithm {
 
