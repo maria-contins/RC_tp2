@@ -1,35 +1,38 @@
-package cnss.lib;
-
-// An application algorithm that does nothing
+package cnss.examples;
 
 import cnss.simulator.ApplicationAlgorithm;
-import cnss.simulator.Node;
-import cnss.simulator.Packet;
 import cnss.simulator.DataPacket;
+import cnss.simulator.Node;
 
-public class EmptyApp implements ApplicationAlgorithm {
+public class Sender implements ApplicationAlgorithm {
 
 	private Node nodeObj;
 	private int nodeId;
 	private String[] args;
-	private int clockPeriod = 0;
-	private int timeoutPeriod = 0;
-	private String name = "empty app";
-	private boolean logOn = false;
 
-	public EmptyApp() {
+	private String name = "sender";
+	private boolean logOn = true;
+	private	int count = 0;
+
+    
+	public Sender() {
 	}
 
 	public int initialise(int now, int node_id, Node mynode, String[] args) {
 		nodeId = node_id;
 		nodeObj = mynode;
 		this.args = args;
-		log(0, "starting");
-		return 0;
+
+		log(now, "starting pings");
+		return 1000;
 	}
 
 	public void on_clock_tick(int now) {
-		log(now, "clock tick");
+		count++;
+		byte[] message = ("ping "+count).getBytes();
+		DataPacket p = nodeObj.createDataPacket(2, message);
+		log(now, "sent ping packet n. "+count+" - " + p);
+		nodeObj.send(p);
 	}
 
 	public void on_timeout(int now) {
@@ -37,11 +40,11 @@ public class EmptyApp implements ApplicationAlgorithm {
 	}
 
 	public void on_receive(int now, DataPacket p) {
-		log(now, "received packet " + p);
+		log(now, " received reply \"" + new String(p.getPayload()) + "\"");
 	}
 
 	public void showState(int now) {
-		log(now, "has no state to show");
+		System.out.println(name + " received "+count+" replies to pings");
 	}
 
 	// auxiliary methods

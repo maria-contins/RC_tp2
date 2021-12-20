@@ -1,12 +1,10 @@
 package cnss.simulator;
 
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
 import cnss.simulator.Event.EventType;
-import cnss.simulator.Packet.PacketType;
 
 /**
  * A <code>Link</code> class that represents a link between two nodes. It

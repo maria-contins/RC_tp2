@@ -2,7 +2,6 @@ package cnss.lib;
 
 // the control (routing) of an end system with one only interface
 
-import cnss.simulator.ControlAlgorithm;
 import cnss.simulator.GlobalParameters;
 import cnss.simulator.Link;
 import cnss.simulator.Node;

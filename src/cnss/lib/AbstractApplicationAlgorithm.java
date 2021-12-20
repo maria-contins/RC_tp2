@@ -2,7 +2,6 @@ package cnss.lib;
 
 import cnss.simulator.ApplicationAlgorithm;
 import cnss.simulator.Node;
-import cnss.simulator.Packet;
 import cnss.simulator.DataPacket;
 
 abstract public class AbstractApplicationAlgorithm implements ApplicationAlgorithm {
