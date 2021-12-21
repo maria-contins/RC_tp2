@@ -1,0 +1,526 @@
+Loading configuration : configs/config-2.3.txt
+Reading file
+Created Node 0: 1 interf.s, ctr code: cnss.lib.EndSystemControl app code: FT21SenderGBN
+Created Node 1: 1 interf.s, ctr code: cnss.lib.EndSystemControl app code: ft21.recv.FT21Receiver
+Added link to node 0 - Link (Node1:0 I1:0)<-->(Node2:1 I2:0) bwd: 2000000 bps lat: 20 ms error: 0.15 jit: 0.1 up
+Added link to node 1 - Link (Node1:0 I1:0)<-->(Node2:1 I2:0) bwd: 2000000 bps lat: 20 ms error: 0.15 jit: 0.1 up
+
+simulation starts - first processing step with clock = 0
+
+log: FT21SenderGBN time 1 node 0 SENDING: UPLOAD<earth.jpg>
+log:    FT21Receiver time 21 node 1 GOT: UPLOAD<earth.jpg>
+log:    FT21Receiver time 21 node 1 SENDING: ACK<0>
+log: FT21SenderGBN time 41 node 0 GOT: ACK<0>
+log: FT21SenderGBN time 41 node 0 SENDING: DATA<1, len: 1000>
+log: FT21SenderGBN time 41 node 0 SENDING: DATA<2, len: 1000>
+log: FT21SenderGBN time 42 node 0 SENDING: DATA<3, len: 1000>
+log: FT21SenderGBN time 43 node 0 SENDING: DATA<4, len: 1000>
+log: FT21SenderGBN time 44 node 0 SENDING: DATA<5, len: 1000>
+log: FT21SenderGBN time 45 node 0 SENDING: DATA<6, len: 1000>
+log: FT21SenderGBN time 46 node 0 SENDING: DATA<7, len: 1000>
+log: FT21SenderGBN time 47 node 0 SENDING: DATA<8, len: 1000>
+log: FT21SenderGBN time 48 node 0 SENDING: DATA<9, len: 1000>
+log: FT21SenderGBN time 49 node 0 SENDING: DATA<10, len: 1000>
+log:    FT21Receiver time 65 node 1 GOT: DATA<1, len: 1000>
+log:    FT21Receiver time 65 node 1 SENDING: ACK<1>
+log:    FT21Receiver time 69 node 1 GOT: DATA<2, len: 1000>
+log:    FT21Receiver time 69 node 1 SENDING: ACK<2>
+log:    FT21Receiver time 73 node 1 GOT: DATA<3, len: 1000>
+log:    FT21Receiver time 73 node 1 SENDING: ACK<3>
+log:    FT21Receiver time 77 node 1 GOT: DATA<4, len: 1000>
+log:    FT21Receiver time 77 node 1 SENDING: ACK<4>
+log:    FT21Receiver time 81 node 1 GOT: DATA<5, len: 1000>
+log:    FT21Receiver time 81 node 1 SENDING: ACK<5>
+log: FT21SenderGBN time 85 node 0 GOT: ACK<cSeqN: 1, oSeqN: 1, time: 41>
+log: FT21SenderGBN time 85 node 0 SENDING: DATA<11, len: 1000>
+log:    FT21Receiver time 85 node 1 GOT: DATA<6, len: 1000>
+log:    FT21Receiver time 85 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 89 node 0 GOT: ACK<cSeqN: 2, oSeqN: 2, time: 41>
+log: FT21SenderGBN time 89 node 0 SENDING: DATA<12, len: 1000>
+log:    FT21Receiver time 89 node 1 GOT: DATA<8, len: 1000>
+log:    FT21Receiver time 89 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 93 node 0 GOT: ACK<cSeqN: 3, oSeqN: 3, time: 42>
+log: FT21SenderGBN time 93 node 0 SENDING: DATA<13, len: 1000>
+log:    FT21Receiver time 93 node 1 GOT: DATA<9, len: 1000>
+log:    FT21Receiver time 93 node 1 SENDING: ACK<6>
+log:    FT21Receiver time 97 node 1 GOT: DATA<10, len: 1000>
+log:    FT21Receiver time 97 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 101 node 0 GOT: ACK<cSeqN: 5, oSeqN: 5, time: 44>
+log: FT21SenderGBN time 101 node 0 SENDING: DATA<14, len: 1000>
+log: FT21SenderGBN time 101 node 0 SENDING: DATA<15, len: 1000>
+log: FT21SenderGBN time 105 node 0 GOT: ACK<cSeqN: 6, oSeqN: 6, time: 45>
+log: FT21SenderGBN time 105 node 0 SENDING: DATA<16, len: 1000>
+log: FT21SenderGBN time 109 node 0 GOT: ACK<cSeqN: 6, oSeqN: 8, time: 47>
+log:    FT21Receiver time 109 node 1 GOT: DATA<11, len: 1000>
+log:    FT21Receiver time 109 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 113 node 0 GOT: ACK<cSeqN: 6, oSeqN: 9, time: 48>
+log:    FT21Receiver time 113 node 1 GOT: DATA<12, len: 1000>
+log:    FT21Receiver time 113 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 117 node 0 GOT: ACK<cSeqN: 6, oSeqN: 10, time: 49>
+log:    FT21Receiver time 117 node 1 GOT: DATA<13, len: 1000>
+log:    FT21Receiver time 117 node 1 SENDING: ACK<6>
+log:    FT21Receiver time 125 node 1 GOT: DATA<14, len: 1000>
+log:    FT21Receiver time 125 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 129 node 0 GOT: ACK<cSeqN: 6, oSeqN: 11, time: 85>
+log:    FT21Receiver time 129 node 1 GOT: DATA<15, len: 1000>
+log:    FT21Receiver time 129 node 1 SENDING: ACK<6>
+log:    FT21Receiver time 133 node 1 GOT: DATA<16, len: 1000>
+log:    FT21Receiver time 133 node 1 SENDING: ACK<6>
+log: FT21SenderGBN time 137 node 0 GOT: ACK<cSeqN: 6, oSeqN: 13, time: 93>
+log: FT21SenderGBN time 145 node 0 GOT: ACK<cSeqN: 6, oSeqN: 14, time: 101>
+log: FT21SenderGBN time 149 node 0 GOT: ACK<cSeqN: 6, oSeqN: 15, time: 101>
+log: FT21SenderGBN time 153 node 0 GOT: ACK<cSeqN: 6, oSeqN: 16, time: 105>
+log: FT21SenderGBN time 1046 node 0 SENDING: DATA<7, len: 1000>
+log: FT21SenderGBN time 1047 node 0 SENDING: DATA<8, len: 1000>
+log: FT21SenderGBN time 1048 node 0 SENDING: DATA<9, len: 1000>
+log: FT21SenderGBN time 1049 node 0 SENDING: DATA<10, len: 1000>
+log: FT21SenderGBN time 1050 node 0 SENDING: DATA<11, len: 1000>
+log: FT21SenderGBN time 1051 node 0 SENDING: DATA<12, len: 1000>
+log: FT21SenderGBN time 1052 node 0 SENDING: DATA<13, len: 1000>
+log: FT21SenderGBN time 1053 node 0 SENDING: DATA<14, len: 1000>
+log: FT21SenderGBN time 1054 node 0 SENDING: DATA<15, len: 1000>
+log: FT21SenderGBN time 1055 node 0 SENDING: DATA<16, len: 1000>
+log:    FT21Receiver time 1070 node 1 GOT: DATA<7, len: 1000>
+log:    FT21Receiver time 1070 node 1 SENDING: ACK<8>
+log:    FT21Receiver time 1074 node 1 GOT: DATA<9, len: 1000>
+log:    FT21Receiver time 1074 node 1 SENDING: ACK<9>
+log:    FT21Receiver time 1078 node 1 GOT: DATA<10, len: 1000>
+log:    FT21Receiver time 1078 node 1 SENDING: ACK<10>
+log:    FT21Receiver time 1082 node 1 GOT: DATA<12, len: 1000>
+log:    FT21Receiver time 1082 node 1 SENDING: ACK<10>
+log:    FT21Receiver time 1086 node 1 GOT: DATA<14, len: 1000>
+log:    FT21Receiver time 1086 node 1 SENDING: ACK<10>
+log: FT21SenderGBN time 1090 node 0 GOT: ACK<cSeqN: 8, oSeqN: 7, time: 1046>
+log: FT21SenderGBN time 1090 node 0 SENDING: DATA<17, len: 1000>
+log: FT21SenderGBN time 1090 node 0 SENDING: DATA<18, len: 1000>
+log:    FT21Receiver time 1090 node 1 GOT: DATA<15, len: 1000>
+log:    FT21Receiver time 1090 node 1 SENDING: ACK<10>
+log: FT21SenderGBN time 1094 node 0 GOT: ACK<cSeqN: 9, oSeqN: 9, time: 1048>
+log: FT21SenderGBN time 1094 node 0 SENDING: DATA<19, len: 1000>
+log:    FT21Receiver time 1094 node 1 GOT: DATA<16, len: 1000>
+log:    FT21Receiver time 1094 node 1 SENDING: ACK<10>
+log: FT21SenderGBN time 1098 node 0 GOT: ACK<cSeqN: 10, oSeqN: 10, time: 1049>
+log: FT21SenderGBN time 1098 node 0 SENDING: DATA<20, len: 1000>
+log: FT21SenderGBN time 1102 node 0 GOT: ACK<cSeqN: 10, oSeqN: 12, time: 1051>
+log: FT21SenderGBN time 1106 node 0 GOT: ACK<cSeqN: 10, oSeqN: 14, time: 1053>
+log: FT21SenderGBN time 1114 node 0 GOT: ACK<cSeqN: 10, oSeqN: 16, time: 1055>
+log:    FT21Receiver time 1114 node 1 GOT: DATA<17, len: 1000>
+log:    FT21Receiver time 1114 node 1 SENDING: ACK<10>
+log:    FT21Receiver time 1118 node 1 GOT: DATA<18, len: 1000>
+log:    FT21Receiver time 1118 node 1 SENDING: ACK<10>
+log:    FT21Receiver time 1122 node 1 GOT: DATA<20, len: 1000>
+log:    FT21Receiver time 1122 node 1 SENDING: ACK<10>
+log: FT21SenderGBN time 1134 node 0 GOT: ACK<cSeqN: 10, oSeqN: 17, time: 1090>
+log: FT21SenderGBN time 1138 node 0 GOT: ACK<cSeqN: 10, oSeqN: 18, time: 1090>
+log: FT21SenderGBN time 1142 node 0 GOT: ACK<cSeqN: 10, oSeqN: 20, time: 1098>
+log: FT21SenderGBN time 2050 node 0 SENDING: DATA<11, len: 1000>
+log: FT21SenderGBN time 2051 node 0 SENDING: DATA<12, len: 1000>
+log: FT21SenderGBN time 2052 node 0 SENDING: DATA<13, len: 1000>
+log: FT21SenderGBN time 2053 node 0 SENDING: DATA<14, len: 1000>
+log: FT21SenderGBN time 2054 node 0 SENDING: DATA<15, len: 1000>
+log: FT21SenderGBN time 2055 node 0 SENDING: DATA<16, len: 1000>
+log: FT21SenderGBN time 2056 node 0 SENDING: DATA<17, len: 1000>
+log: FT21SenderGBN time 2057 node 0 SENDING: DATA<18, len: 1000>
+log: FT21SenderGBN time 2058 node 0 SENDING: DATA<19, len: 1000>
+log: FT21SenderGBN time 2059 node 0 SENDING: DATA<20, len: 1000>
+log:    FT21Receiver time 2074 node 1 GOT: DATA<11, len: 1000>
+log:    FT21Receiver time 2074 node 1 SENDING: ACK<12>
+log:    FT21Receiver time 2078 node 1 GOT: DATA<12, len: 1000>
+log:    FT21Receiver time 2078 node 1 SENDING: ACK<12>
+log:    FT21Receiver time 2082 node 1 GOT: DATA<13, len: 1000>
+log:    FT21Receiver time 2082 node 1 SENDING: ACK<13>
+log:    FT21Receiver time 2086 node 1 GOT: DATA<14, len: 1000>
+log:    FT21Receiver time 2086 node 1 SENDING: ACK<14>
+log:    FT21Receiver time 2090 node 1 GOT: DATA<15, len: 1000>
+log:    FT21Receiver time 2090 node 1 SENDING: ACK<15>
+log: FT21SenderGBN time 2094 node 0 GOT: ACK<cSeqN: 12, oSeqN: 11, time: 2050>
+log: FT21SenderGBN time 2094 node 0 SENDING: DATA<21, len: 1000>
+log: FT21SenderGBN time 2094 node 0 SENDING: DATA<22, len: 1000>
+log:    FT21Receiver time 2094 node 1 GOT: DATA<16, len: 1000>
+log:    FT21Receiver time 2094 node 1 SENDING: ACK<16>
+log: FT21SenderGBN time 2098 node 0 GOT: ACK<cSeqN: 12, oSeqN: 12, time: 2051>
+log:    FT21Receiver time 2098 node 1 GOT: DATA<17, len: 1000>
+log:    FT21Receiver time 2098 node 1 SENDING: ACK<17>
+log: FT21SenderGBN time 2102 node 0 GOT: ACK<cSeqN: 13, oSeqN: 13, time: 2052>
+log: FT21SenderGBN time 2102 node 0 SENDING: DATA<23, len: 1000>
+log:    FT21Receiver time 2102 node 1 GOT: DATA<18, len: 1000>
+log:    FT21Receiver time 2102 node 1 SENDING: ACK<18>
+log: FT21SenderGBN time 2106 node 0 GOT: ACK<cSeqN: 14, oSeqN: 14, time: 2053>
+log: FT21SenderGBN time 2106 node 0 SENDING: DATA<24, len: 1000>
+log:    FT21Receiver time 2106 node 1 GOT: DATA<19, len: 1000>
+log:    FT21Receiver time 2106 node 1 SENDING: ACK<19>
+log: FT21SenderGBN time 2110 node 0 GOT: ACK<cSeqN: 15, oSeqN: 15, time: 2054>
+log: FT21SenderGBN time 2110 node 0 SENDING: DATA<25, len: 1000>
+log:    FT21Receiver time 2110 node 1 GOT: DATA<20, len: 1000>
+log:    FT21Receiver time 2110 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2114 node 0 GOT: ACK<cSeqN: 16, oSeqN: 16, time: 2055>
+log: FT21SenderGBN time 2114 node 0 SENDING: DATA<26, len: 1000>
+log:    FT21Receiver time 2118 node 1 GOT: DATA<22, len: 1000>
+log:    FT21Receiver time 2118 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2122 node 0 GOT: ACK<cSeqN: 18, oSeqN: 18, time: 2057>
+log: FT21SenderGBN time 2122 node 0 SENDING: DATA<27, len: 1000>
+log: FT21SenderGBN time 2122 node 0 SENDING: DATA<28, len: 1000>
+log: FT21SenderGBN time 2126 node 0 GOT: ACK<cSeqN: 19, oSeqN: 19, time: 2058>
+log: FT21SenderGBN time 2126 node 0 SENDING: DATA<29, len: 1000>
+log:    FT21Receiver time 2126 node 1 GOT: DATA<23, len: 1000>
+log:    FT21Receiver time 2126 node 1 SENDING: ACK<20>
+log:    FT21Receiver time 2130 node 1 GOT: DATA<24, len: 1000>
+log:    FT21Receiver time 2130 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2138 node 0 GOT: ACK<cSeqN: 20, oSeqN: 22, time: 2094>
+log: FT21SenderGBN time 2138 node 0 SENDING: DATA<30, len: 1000>
+log:    FT21Receiver time 2138 node 1 GOT: DATA<26, len: 1000>
+log:    FT21Receiver time 2138 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2146 node 0 GOT: ACK<cSeqN: 20, oSeqN: 23, time: 2102>
+log:    FT21Receiver time 2146 node 1 GOT: DATA<27, len: 1000>
+log:    FT21Receiver time 2146 node 1 SENDING: ACK<20>
+log:    FT21Receiver time 2150 node 1 GOT: DATA<28, len: 1000>
+log:    FT21Receiver time 2150 node 1 SENDING: ACK<20>
+log:    FT21Receiver time 2154 node 1 GOT: DATA<29, len: 1000>
+log:    FT21Receiver time 2154 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2158 node 0 GOT: ACK<cSeqN: 20, oSeqN: 26, time: 2114>
+log:    FT21Receiver time 2162 node 1 GOT: DATA<30, len: 1000>
+log:    FT21Receiver time 2162 node 1 SENDING: ACK<20>
+log: FT21SenderGBN time 2166 node 0 GOT: ACK<cSeqN: 20, oSeqN: 27, time: 2122>
+log: FT21SenderGBN time 2170 node 0 GOT: ACK<cSeqN: 20, oSeqN: 28, time: 2122>
+log: FT21SenderGBN time 2174 node 0 GOT: ACK<cSeqN: 20, oSeqN: 29, time: 2126>
+log: FT21SenderGBN time 2182 node 0 GOT: ACK<cSeqN: 20, oSeqN: 30, time: 2138>
+log: FT21SenderGBN time 3094 node 0 SENDING: DATA<21, len: 1000>
+log: FT21SenderGBN time 3095 node 0 SENDING: DATA<22, len: 1000>
+log: FT21SenderGBN time 3096 node 0 SENDING: DATA<23, len: 1000>
+log: FT21SenderGBN time 3097 node 0 SENDING: DATA<24, len: 1000>
+log: FT21SenderGBN time 3098 node 0 SENDING: DATA<25, len: 1000>
+log: FT21SenderGBN time 3099 node 0 SENDING: DATA<26, len: 1000>
+log: FT21SenderGBN time 3100 node 0 SENDING: DATA<27, len: 1000>
+log: FT21SenderGBN time 3101 node 0 SENDING: DATA<28, len: 1000>
+log: FT21SenderGBN time 3102 node 0 SENDING: DATA<29, len: 1000>
+log: FT21SenderGBN time 3103 node 0 SENDING: DATA<30, len: 1000>
+log:    FT21Receiver time 3118 node 1 GOT: DATA<21, len: 1000>
+log:    FT21Receiver time 3118 node 1 SENDING: ACK<22>
+log:    FT21Receiver time 3122 node 1 GOT: DATA<22, len: 1000>
+log:    FT21Receiver time 3122 node 1 SENDING: ACK<22>
+log:    FT21Receiver time 3126 node 1 GOT: DATA<23, len: 1000>
+log:    FT21Receiver time 3126 node 1 SENDING: ACK<23>
+log:    FT21Receiver time 3130 node 1 GOT: DATA<24, len: 1000>
+log:    FT21Receiver time 3130 node 1 SENDING: ACK<24>
+log:    FT21Receiver time 3134 node 1 GOT: DATA<25, len: 1000>
+log:    FT21Receiver time 3134 node 1 SENDING: ACK<25>
+log:    FT21Receiver time 3138 node 1 GOT: DATA<28, len: 1000>
+log:    FT21Receiver time 3138 node 1 SENDING: ACK<25>
+log: FT21SenderGBN time 3142 node 0 GOT: ACK<cSeqN: 22, oSeqN: 22, time: 3095>
+log: FT21SenderGBN time 3142 node 0 SENDING: DATA<31, len: 1000>
+log: FT21SenderGBN time 3142 node 0 SENDING: DATA<32, len: 1000>
+log:    FT21Receiver time 3142 node 1 GOT: DATA<29, len: 1000>
+log:    FT21Receiver time 3142 node 1 SENDING: ACK<25>
+log: FT21SenderGBN time 3146 node 0 GOT: ACK<cSeqN: 23, oSeqN: 23, time: 3096>
+log: FT21SenderGBN time 3146 node 0 SENDING: DATA<33, len: 1000>
+log:    FT21Receiver time 3146 node 1 GOT: DATA<30, len: 1000>
+log:    FT21Receiver time 3146 node 1 SENDING: ACK<25>
+log: FT21SenderGBN time 3150 node 0 GOT: ACK<cSeqN: 24, oSeqN: 24, time: 3097>
+log: FT21SenderGBN time 3150 node 0 SENDING: DATA<34, len: 1000>
+log: FT21SenderGBN time 3154 node 0 GOT: ACK<cSeqN: 25, oSeqN: 25, time: 3098>
+log: FT21SenderGBN time 3154 node 0 SENDING: DATA<35, len: 1000>
+log: FT21SenderGBN time 3158 node 0 GOT: ACK<cSeqN: 25, oSeqN: 28, time: 3101>
+log:    FT21Receiver time 3166 node 1 GOT: DATA<31, len: 1000>
+log:    FT21Receiver time 3166 node 1 SENDING: ACK<25>
+log:    FT21Receiver time 3170 node 1 GOT: DATA<32, len: 1000>
+log:    FT21Receiver time 3170 node 1 SENDING: ACK<25>
+log:    FT21Receiver time 3174 node 1 GOT: DATA<33, len: 1000>
+log:    FT21Receiver time 3174 node 1 SENDING: ACK<25>
+log:    FT21Receiver time 3178 node 1 GOT: DATA<34, len: 1000>
+log:    FT21Receiver time 3178 node 1 SENDING: ACK<25>
+log:    FT21Receiver time 3182 node 1 GOT: DATA<35, len: 1000>
+log:    FT21Receiver time 3182 node 1 SENDING: ACK<25>
+log: FT21SenderGBN time 3190 node 0 GOT: ACK<cSeqN: 25, oSeqN: 32, time: 3142>
+log: FT21SenderGBN time 3194 node 0 GOT: ACK<cSeqN: 25, oSeqN: 33, time: 3146>
+log: FT21SenderGBN time 3198 node 0 GOT: ACK<cSeqN: 25, oSeqN: 34, time: 3150>
+log: FT21SenderGBN time 3202 node 0 GOT: ACK<cSeqN: 25, oSeqN: 35, time: 3154>
+log: FT21SenderGBN time 4099 node 0 SENDING: DATA<26, len: 1000>
+log: FT21SenderGBN time 4100 node 0 SENDING: DATA<27, len: 1000>
+log: FT21SenderGBN time 4101 node 0 SENDING: DATA<28, len: 1000>
+log: FT21SenderGBN time 4102 node 0 SENDING: DATA<29, len: 1000>
+log: FT21SenderGBN time 4103 node 0 SENDING: DATA<30, len: 1000>
+log: FT21SenderGBN time 4104 node 0 SENDING: DATA<31, len: 1000>
+log: FT21SenderGBN time 4105 node 0 SENDING: DATA<32, len: 1000>
+log: FT21SenderGBN time 4106 node 0 SENDING: DATA<33, len: 1000>
+log: FT21SenderGBN time 4107 node 0 SENDING: DATA<34, len: 1000>
+log: FT21SenderGBN time 4108 node 0 SENDING: DATA<35, len: 1000>
+log:    FT21Receiver time 4123 node 1 GOT: DATA<26, len: 1000>
+log:    FT21Receiver time 4123 node 1 SENDING: ACK<26>
+log:    FT21Receiver time 4127 node 1 GOT: DATA<28, len: 1000>
+log:    FT21Receiver time 4127 node 1 SENDING: ACK<26>
+log:    FT21Receiver time 4131 node 1 GOT: DATA<29, len: 1000>
+log:    FT21Receiver time 4131 node 1 SENDING: ACK<26>
+log:    FT21Receiver time 4135 node 1 GOT: DATA<30, len: 1000>
+log:    FT21Receiver time 4135 node 1 SENDING: ACK<26>
+log:    FT21Receiver time 4139 node 1 GOT: DATA<31, len: 1000>
+log:    FT21Receiver time 4139 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4143 node 0 GOT: ACK<cSeqN: 26, oSeqN: 26, time: 4099>
+log: FT21SenderGBN time 4143 node 0 SENDING: DATA<36, len: 1000>
+log:    FT21Receiver time 4143 node 1 GOT: DATA<32, len: 1000>
+log:    FT21Receiver time 4143 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4147 node 0 GOT: ACK<cSeqN: 26, oSeqN: 28, time: 4101>
+log:    FT21Receiver time 4147 node 1 GOT: DATA<33, len: 1000>
+log:    FT21Receiver time 4147 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4151 node 0 GOT: ACK<cSeqN: 26, oSeqN: 29, time: 4102>
+log:    FT21Receiver time 4151 node 1 GOT: DATA<34, len: 1000>
+log:    FT21Receiver time 4151 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4155 node 0 GOT: ACK<cSeqN: 26, oSeqN: 30, time: 4103>
+log:    FT21Receiver time 4155 node 1 GOT: DATA<35, len: 1000>
+log:    FT21Receiver time 4155 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4163 node 0 GOT: ACK<cSeqN: 26, oSeqN: 32, time: 4105>
+log: FT21SenderGBN time 4167 node 0 GOT: ACK<cSeqN: 26, oSeqN: 33, time: 4106>
+log:    FT21Receiver time 4167 node 1 GOT: DATA<36, len: 1000>
+log:    FT21Receiver time 4167 node 1 SENDING: ACK<26>
+log: FT21SenderGBN time 4171 node 0 GOT: ACK<cSeqN: 26, oSeqN: 34, time: 4107>
+log: FT21SenderGBN time 4175 node 0 GOT: ACK<cSeqN: 26, oSeqN: 35, time: 4108>
+log: FT21SenderGBN time 4187 node 0 GOT: ACK<cSeqN: 26, oSeqN: 36, time: 4143>
+log: FT21SenderGBN time 5100 node 0 SENDING: DATA<27, len: 1000>
+log: FT21SenderGBN time 5101 node 0 SENDING: DATA<28, len: 1000>
+log: FT21SenderGBN time 5102 node 0 SENDING: DATA<29, len: 1000>
+log: FT21SenderGBN time 5103 node 0 SENDING: DATA<30, len: 1000>
+log: FT21SenderGBN time 5104 node 0 SENDING: DATA<31, len: 1000>
+log: FT21SenderGBN time 5105 node 0 SENDING: DATA<32, len: 1000>
+log: FT21SenderGBN time 5106 node 0 SENDING: DATA<33, len: 1000>
+log: FT21SenderGBN time 5107 node 0 SENDING: DATA<34, len: 1000>
+log: FT21SenderGBN time 5108 node 0 SENDING: DATA<35, len: 1000>
+log: FT21SenderGBN time 5109 node 0 SENDING: DATA<36, len: 1000>
+log:    FT21Receiver time 5124 node 1 GOT: DATA<27, len: 1000>
+log:    FT21Receiver time 5124 node 1 SENDING: ACK<28>
+log:    FT21Receiver time 5128 node 1 GOT: DATA<28, len: 1000>
+log:    FT21Receiver time 5128 node 1 SENDING: ACK<28>
+log:    FT21Receiver time 5132 node 1 GOT: DATA<29, len: 1000>
+log:    FT21Receiver time 5132 node 1 SENDING: ACK<29>
+log:    FT21Receiver time 5136 node 1 GOT: DATA<30, len: 1000>
+log:    FT21Receiver time 5136 node 1 SENDING: ACK<30>
+log:    FT21Receiver time 5140 node 1 GOT: DATA<31, len: 1000>
+log:    FT21Receiver time 5140 node 1 SENDING: ACK<31>
+log: FT21SenderGBN time 5144 node 0 GOT: ACK<cSeqN: 28, oSeqN: 27, time: 5100>
+log: FT21SenderGBN time 5144 node 0 SENDING: DATA<37, len: 1000>
+log: FT21SenderGBN time 5144 node 0 SENDING: DATA<38, len: 1000>
+log:    FT21Receiver time 5144 node 1 GOT: DATA<32, len: 1000>
+log:    FT21Receiver time 5144 node 1 SENDING: ACK<32>
+log: FT21SenderGBN time 5148 node 0 GOT: ACK<cSeqN: 28, oSeqN: 28, time: 5101>
+log:    FT21Receiver time 5148 node 1 GOT: DATA<33, len: 1000>
+log:    FT21Receiver time 5148 node 1 SENDING: ACK<33>
+log: FT21SenderGBN time 5152 node 0 GOT: ACK<cSeqN: 29, oSeqN: 29, time: 5102>
+log: FT21SenderGBN time 5152 node 0 SENDING: DATA<39, len: 1000>
+log:    FT21Receiver time 5152 node 1 GOT: DATA<34, len: 1000>
+log:    FT21Receiver time 5152 node 1 SENDING: ACK<34>
+log: FT21SenderGBN time 5156 node 0 GOT: ACK<cSeqN: 30, oSeqN: 30, time: 5103>
+log: FT21SenderGBN time 5156 node 0 SENDING: DATA<40, len: 1000>
+log:    FT21Receiver time 5156 node 1 GOT: DATA<35, len: 1000>
+log:    FT21Receiver time 5156 node 1 SENDING: ACK<35>
+log: FT21SenderGBN time 5160 node 0 GOT: ACK<cSeqN: 31, oSeqN: 31, time: 5104>
+log: FT21SenderGBN time 5160 node 0 SENDING: DATA<41, len: 1000>
+log:    FT21Receiver time 5160 node 1 GOT: DATA<36, len: 1000>
+log:    FT21Receiver time 5160 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5164 node 0 GOT: ACK<cSeqN: 32, oSeqN: 32, time: 5105>
+log: FT21SenderGBN time 5164 node 0 SENDING: DATA<42, len: 1000>
+log: FT21SenderGBN time 5168 node 0 GOT: ACK<cSeqN: 33, oSeqN: 33, time: 5106>
+log: FT21SenderGBN time 5168 node 0 SENDING: DATA<43, len: 1000>
+log:    FT21Receiver time 5168 node 1 GOT: DATA<38, len: 1000>
+log:    FT21Receiver time 5168 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5172 node 0 GOT: ACK<cSeqN: 34, oSeqN: 34, time: 5107>
+log: FT21SenderGBN time 5172 node 0 SENDING: DATA<44, len: 1000>
+log: FT21SenderGBN time 5176 node 0 GOT: ACK<cSeqN: 35, oSeqN: 35, time: 5108>
+log: FT21SenderGBN time 5176 node 0 SENDING: DATA<45, len: 1000>
+log:    FT21Receiver time 5176 node 1 GOT: DATA<39, len: 1000>
+log:    FT21Receiver time 5176 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5180 node 0 GOT: ACK<cSeqN: 36, oSeqN: 36, time: 5109>
+log: FT21SenderGBN time 5180 node 0 SENDING: DATA<46, len: 1000>
+log:    FT21Receiver time 5180 node 1 GOT: DATA<40, len: 1000>
+log:    FT21Receiver time 5180 node 1 SENDING: ACK<36>
+log:    FT21Receiver time 5184 node 1 GOT: DATA<41, len: 1000>
+log:    FT21Receiver time 5184 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5188 node 0 GOT: ACK<cSeqN: 36, oSeqN: 38, time: 5144>
+log:    FT21Receiver time 5192 node 1 GOT: DATA<43, len: 1000>
+log:    FT21Receiver time 5192 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5196 node 0 GOT: ACK<cSeqN: 36, oSeqN: 39, time: 5152>
+log:    FT21Receiver time 5196 node 1 GOT: DATA<44, len: 1000>
+log:    FT21Receiver time 5196 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5200 node 0 GOT: ACK<cSeqN: 36, oSeqN: 40, time: 5156>
+log:    FT21Receiver time 5200 node 1 GOT: DATA<45, len: 1000>
+log:    FT21Receiver time 5200 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5204 node 0 GOT: ACK<cSeqN: 36, oSeqN: 41, time: 5160>
+log:    FT21Receiver time 5204 node 1 GOT: DATA<46, len: 1000>
+log:    FT21Receiver time 5204 node 1 SENDING: ACK<36>
+log: FT21SenderGBN time 5212 node 0 GOT: ACK<cSeqN: 36, oSeqN: 43, time: 5168>
+log: FT21SenderGBN time 5220 node 0 GOT: ACK<cSeqN: 36, oSeqN: 45, time: 5176>
+log: FT21SenderGBN time 5224 node 0 GOT: ACK<cSeqN: 36, oSeqN: 46, time: 5180>
+log: FT21SenderGBN time 6144 node 0 SENDING: DATA<37, len: 1000>
+log: FT21SenderGBN time 6145 node 0 SENDING: DATA<38, len: 1000>
+log: FT21SenderGBN time 6146 node 0 SENDING: DATA<39, len: 1000>
+log: FT21SenderGBN time 6147 node 0 SENDING: DATA<40, len: 1000>
+log: FT21SenderGBN time 6148 node 0 SENDING: DATA<41, len: 1000>
+log: FT21SenderGBN time 6149 node 0 SENDING: DATA<42, len: 1000>
+log: FT21SenderGBN time 6150 node 0 SENDING: DATA<43, len: 1000>
+log: FT21SenderGBN time 6151 node 0 SENDING: DATA<44, len: 1000>
+log: FT21SenderGBN time 6152 node 0 SENDING: DATA<45, len: 1000>
+log: FT21SenderGBN time 6153 node 0 SENDING: DATA<46, len: 1000>
+log:    FT21Receiver time 6168 node 1 GOT: DATA<37, len: 1000>
+log:    FT21Receiver time 6168 node 1 SENDING: ACK<38>
+log:    FT21Receiver time 6172 node 1 GOT: DATA<38, len: 1000>
+log:    FT21Receiver time 6172 node 1 SENDING: ACK<38>
+log:    FT21Receiver time 6176 node 1 GOT: DATA<39, len: 1000>
+log:    FT21Receiver time 6176 node 1 SENDING: ACK<39>
+log:    FT21Receiver time 6180 node 1 GOT: DATA<40, len: 1000>
+log:    FT21Receiver time 6180 node 1 SENDING: ACK<40>
+log:    FT21Receiver time 6184 node 1 GOT: DATA<41, len: 1000>
+log:    FT21Receiver time 6184 node 1 SENDING: ACK<41>
+log: FT21SenderGBN time 6188 node 0 GOT: ACK<cSeqN: 38, oSeqN: 37, time: 6144>
+log: FT21SenderGBN time 6188 node 0 SENDING: DATA<47, len: 1000>
+log: FT21SenderGBN time 6188 node 0 SENDING: DATA<48, len: 1000>
+log:    FT21Receiver time 6188 node 1 GOT: DATA<42, len: 1000>
+log:    FT21Receiver time 6188 node 1 SENDING: ACK<42>
+log: FT21SenderGBN time 6192 node 0 GOT: ACK<cSeqN: 38, oSeqN: 38, time: 6145>
+log:    FT21Receiver time 6192 node 1 GOT: DATA<43, len: 1000>
+log:    FT21Receiver time 6192 node 1 SENDING: ACK<43>
+log: FT21SenderGBN time 6196 node 0 GOT: ACK<cSeqN: 39, oSeqN: 39, time: 6146>
+log: FT21SenderGBN time 6196 node 0 SENDING: DATA<49, len: 1000>
+log:    FT21Receiver time 6196 node 1 GOT: DATA<44, len: 1000>
+log:    FT21Receiver time 6196 node 1 SENDING: ACK<44>
+log: FT21SenderGBN time 6200 node 0 GOT: ACK<cSeqN: 40, oSeqN: 40, time: 6147>
+log: FT21SenderGBN time 6200 node 0 SENDING: DATA<50, len: 1000>
+log:    FT21Receiver time 6200 node 1 GOT: DATA<45, len: 1000>
+log:    FT21Receiver time 6200 node 1 SENDING: ACK<45>
+log: FT21SenderGBN time 6204 node 0 GOT: ACK<cSeqN: 41, oSeqN: 41, time: 6148>
+log: FT21SenderGBN time 6204 node 0 SENDING: DATA<51, len: 1000>
+log:    FT21Receiver time 6204 node 1 GOT: DATA<46, len: 1000>
+log:    FT21Receiver time 6204 node 1 SENDING: ACK<46>
+log: FT21SenderGBN time 6208 node 0 GOT: ACK<cSeqN: 42, oSeqN: 42, time: 6149>
+log: FT21SenderGBN time 6208 node 0 SENDING: DATA<52, len: 1000>
+log: FT21SenderGBN time 6212 node 0 GOT: ACK<cSeqN: 43, oSeqN: 43, time: 6150>
+log: FT21SenderGBN time 6212 node 0 SENDING: DATA<53, len: 1000>
+log:    FT21Receiver time 6212 node 1 GOT: DATA<47, len: 1000>
+log:    FT21Receiver time 6212 node 1 SENDING: ACK<47>
+log: FT21SenderGBN time 6216 node 0 GOT: ACK<cSeqN: 44, oSeqN: 44, time: 6151>
+log: FT21SenderGBN time 6216 node 0 SENDING: DATA<54, len: 1000>
+log:    FT21Receiver time 6216 node 1 GOT: DATA<48, len: 1000>
+log:    FT21Receiver time 6216 node 1 SENDING: ACK<48>
+log: FT21SenderGBN time 6220 node 0 GOT: ACK<cSeqN: 45, oSeqN: 45, time: 6152>
+log: FT21SenderGBN time 6220 node 0 SENDING: DATA<55, len: 1000>
+log:    FT21Receiver time 6220 node 1 GOT: DATA<49, len: 1000>
+log:    FT21Receiver time 6220 node 1 SENDING: ACK<49>
+log: FT21SenderGBN time 6224 node 0 GOT: ACK<cSeqN: 46, oSeqN: 46, time: 6153>
+log: FT21SenderGBN time 6224 node 0 SENDING: DATA<56, len: 1000>
+log:    FT21Receiver time 6224 node 1 GOT: DATA<50, len: 1000>
+log:    FT21Receiver time 6224 node 1 SENDING: ACK<50>
+log:    FT21Receiver time 6228 node 1 GOT: DATA<51, len: 1000>
+log:    FT21Receiver time 6228 node 1 SENDING: ACK<51>
+log:    FT21Receiver time 6232 node 1 GOT: DATA<52, len: 1000>
+log:    FT21Receiver time 6232 node 1 SENDING: ACK<52>
+log: FT21SenderGBN time 6236 node 0 GOT: ACK<cSeqN: 48, oSeqN: 48, time: 6188>
+log: FT21SenderGBN time 6236 node 0 SENDING: DATA<57, len: 1000>
+log: FT21SenderGBN time 6236 node 0 SENDING: DATA<58, len: 1000>
+log:    FT21Receiver time 6236 node 1 GOT: DATA<53, len: 1000>
+log:    FT21Receiver time 6236 node 1 SENDING: ACK<53>
+log:    FT21Receiver time 6240 node 1 GOT: DATA<54, len: 1000>
+log:    FT21Receiver time 6240 node 1 SENDING: ACK<54>
+log: FT21SenderGBN time 6244 node 0 GOT: ACK<cSeqN: 50, oSeqN: 50, time: 6200>
+log: FT21SenderGBN time 6244 node 0 SENDING: DATA<59, len: 1000>
+log: FT21SenderGBN time 6244 node 0 SENDING: DATA<60, len: 1000>
+log:    FT21Receiver time 6244 node 1 GOT: DATA<55, len: 1000>
+log:    FT21Receiver time 6244 node 1 SENDING: ACK<55>
+log: FT21SenderGBN time 6248 node 0 GOT: ACK<cSeqN: 51, oSeqN: 51, time: 6204>
+log: FT21SenderGBN time 6248 node 0 SENDING: DATA<61, len: 1000>
+log:    FT21Receiver time 6248 node 1 GOT: DATA<56, len: 1000>
+log:    FT21Receiver time 6248 node 1 SENDING: ACK<56>
+log: FT21SenderGBN time 6252 node 0 GOT: ACK<cSeqN: 52, oSeqN: 52, time: 6208>
+log: FT21SenderGBN time 6252 node 0 SENDING: DATA<62, len: 1000>
+log: FT21SenderGBN time 6256 node 0 GOT: ACK<cSeqN: 53, oSeqN: 53, time: 6212>
+log: FT21SenderGBN time 6256 node 0 SENDING: DATA<63, len: 1000>
+log: FT21SenderGBN time 6260 node 0 GOT: ACK<cSeqN: 54, oSeqN: 54, time: 6216>
+log: FT21SenderGBN time 6260 node 0 SENDING: DATA<64, len: 1000>
+log:    FT21Receiver time 6260 node 1 GOT: DATA<57, len: 1000>
+log:    FT21Receiver time 6260 node 1 SENDING: ACK<57>
+log: FT21SenderGBN time 6264 node 0 GOT: ACK<cSeqN: 55, oSeqN: 55, time: 6220>
+log: FT21SenderGBN time 6264 node 0 SENDING: DATA<65, len: 1000>
+log:    FT21Receiver time 6264 node 1 GOT: DATA<58, len: 1000>
+log:    FT21Receiver time 6264 node 1 SENDING: ACK<58>
+log: FT21SenderGBN time 6268 node 0 GOT: ACK<cSeqN: 56, oSeqN: 56, time: 6224>
+log:    FT21Receiver time 6268 node 1 GOT: DATA<59, len: 1000>
+log:    FT21Receiver time 6268 node 1 SENDING: ACK<59>
+log:    FT21Receiver time 6272 node 1 GOT: DATA<60, len: 1000>
+log:    FT21Receiver time 6272 node 1 SENDING: ACK<60>
+log:    FT21Receiver time 6276 node 1 GOT: DATA<62, len: 1000>
+log:    FT21Receiver time 6276 node 1 SENDING: ACK<60>
+log: FT21SenderGBN time 6280 node 0 GOT: ACK<cSeqN: 57, oSeqN: 57, time: 6236>
+log:    FT21Receiver time 6280 node 1 GOT: DATA<63, len: 1000>
+log:    FT21Receiver time 6280 node 1 SENDING: ACK<60>
+log: FT21SenderGBN time 6284 node 0 GOT: ACK<cSeqN: 58, oSeqN: 58, time: 6236>
+log:    FT21Receiver time 6284 node 1 GOT: DATA<64, len: 1000>
+log:    FT21Receiver time 6284 node 1 SENDING: ACK<60>
+log:    FT21Receiver time 6286 node 1 GOT: DATA<65, len: 645>
+log:    FT21Receiver time 6286 node 1 SENDING: ACK<60>
+log: FT21SenderGBN time 6288 node 0 GOT: ACK<cSeqN: 59, oSeqN: 59, time: 6244>
+log: FT21SenderGBN time 6292 node 0 GOT: ACK<cSeqN: 60, oSeqN: 60, time: 6244>
+log: FT21SenderGBN time 6296 node 0 GOT: ACK<cSeqN: 60, oSeqN: 62, time: 6252>
+log: FT21SenderGBN time 6300 node 0 GOT: ACK<cSeqN: 60, oSeqN: 63, time: 6256>
+log: FT21SenderGBN time 6304 node 0 GOT: ACK<cSeqN: 60, oSeqN: 64, time: 6260>
+log: FT21SenderGBN time 7248 node 0 SENDING: DATA<61, len: 1000>
+log: FT21SenderGBN time 7249 node 0 SENDING: DATA<62, len: 1000>
+log: FT21SenderGBN time 7250 node 0 SENDING: DATA<63, len: 1000>
+log: FT21SenderGBN time 7251 node 0 SENDING: DATA<64, len: 1000>
+log: FT21SenderGBN time 7252 node 0 SENDING: DATA<65, len: 1000>
+log:    FT21Receiver time 7272 node 1 GOT: DATA<61, len: 1000>
+log:    FT21Receiver time 7272 node 1 SENDING: ACK<62>
+log:    FT21Receiver time 7276 node 1 GOT: DATA<63, len: 1000>
+log:    FT21Receiver time 7276 node 1 SENDING: ACK<63>
+log:    FT21Receiver time 7280 node 1 GOT: DATA<64, len: 1000>
+log:    FT21Receiver time 7280 node 1 SENDING: ACK<64>
+log: FT21SenderGBN time 7292 node 0 GOT: ACK<cSeqN: 62, oSeqN: 61, time: 7248>
+log: FT21SenderGBN time 7296 node 0 GOT: ACK<cSeqN: 63, oSeqN: 63, time: 7250>
+log: FT21SenderGBN time 7300 node 0 GOT: ACK<cSeqN: 64, oSeqN: 64, time: 7251>
+log: FT21SenderGBN time 8252 node 0 SENDING: DATA<65, len: 1000>
+log:    FT21Receiver time 8274 node 1 GOT: DATA<65, len: 645>
+log:    FT21Receiver time 8274 node 1 SENDING: ACK<65>
+log: FT21SenderGBN time 8294 node 0 GOT: ACK<cSeqN: 65, oSeqN: 65, time: 8252>
+log: FT21SenderGBN time 8294 node 0 SENDING: FIN<66>
+log:    FT21Receiver time 8314 node 1 GOT: FIN<66>
+
++++++++++++++++++++++++++++++++++++++++++
+   FT21Receiver STATS
+
+COUNTERS:
+Inbound: {FT21_UploadPacket=1, FT21_FinPacket=1, bytes=119138, FT21_DataPacket=116}
+Outbound: {bytes=3700, FT21_AckPacket=117}
+------------------------------------
+RTT/Timeout Stats:
+RTT (max/avg/min/#samples) : ?, ?, ?, ?
+Timeout (max/avg/min/#samples) : ?, ?, ?, ?
+timeout events: 0
+------------------------------------
+Transfer Rates:
+Inbound mean transfer rate: 114.64 Kbit/s
+Outbound mean transfer rate: 3.56 Kbit/s
++++++++++++++++++++++++++++++++++++++++++
+
+log:    FT21Receiver time 8314 node 1 SENDING: ACK<66>
+log: FT21SenderGBN time 8334 node 0 GOT: ACK<66>
+log: FT21SenderGBN time 8334 node 0 All Done. Transfer complete...
+
++++++++++++++++++++++++++++++++++++++++++
+FT21SenderGBN STATS
+
+COUNTERS:
+Inbound: {bytes=3250, FT21_AckPacket=103}
+Outbound: {FT21_UploadPacket=1, FT21_FinPacket=1, bytes=134274, FT21_DataPacket=131}
+------------------------------------
+RTT/Timeout Stats:
+RTT (min: 42 / avg: 50.79 / max: 71 / #samples: 101)
+Timeout (min: 1000 / avg: 1000.00 / max: 1000 / #samples: 8)
+timeout events: 0
+------------------------------------
+Transfer Rates:
+Inbound mean transfer rate: 3.12 Kbit/s
+Outbound mean transfer rate: 128.89 Kbit/s
++++++++++++++++++++++++++++++++++++++++++
+
+log: FT21SenderGBN time 8334 node 0 FINAL TIMEOUT: 1000
+
+Warning - 1 events not run; stoped too early?
+
+simulation ended - last processing step with clock = 600001
+
+
+Process finished with exit code 0

@@ -16,21 +16,21 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
     private static final int DEFAULT_TIMEOUT = 1000;
     private final int RECEIVER = 1;
 
-    private Queue<Tuple> sentPackages;
+    record Tuple(int seqN, int now){};
+
+    private Queue<Tuple> window;
 
     private File file;
     private RandomAccessFile rFile;
-    private int blocksize, windowsize;
+    private int blocksize;
+    private int windowsize;
 
-    private int lastRollBack;
+    private int lastGoBack;
 
-    private int seqNumber;
+    private int sequenceNumber;
     private int lastSeqNumber;
 
     private State state;
-
-    record Tuple(int seqN, int now) {
-    };
 
     public FT21SenderGBN() {
         super(true, "FT21SenderGBN");
@@ -46,13 +46,13 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
 
-            this.sentPackages = new LinkedList<Tuple>();
+            this.window = new LinkedList<>();
 
             lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
 
             state = State.BEGINNING;
-            seqNumber = 0;
-            lastRollBack = 0;
+            sequenceNumber = 0;
+            lastGoBack = -1;
 
         } catch(IOException e) {
             throw new Error("File not found");
@@ -66,42 +66,51 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     public void on_clock_tick(int now) {
-        if(state != State.FINISHED && sentPackages.size() <= windowsize)
+        if(state != State.FINISHED && window.size() <= windowsize) {
             sendNextPacket(now);
+        }
     }
 
-    //TODO
     @Override
     public void on_timeout(int now) {
         super.on_timeout(now);
 
-        goBackN(sentPackages.poll().seqN);
+        goBackN(window.peek().seqN);
+
+        if(state != State.FINISHED && window.size() <= windowsize)
+            sendNextPacket(now);
     }
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
-        Tuple tuple;
+        super.on_receive_ack(now, src, ack);
 
         switch(state) {
             case UPLOADING:
-                tuple = sentPackages.peek();
-
-                if(tuple.seqN > ack.cSeqN && lastRollBack != ack.cSeqN) {
+                if(window.peek().seqN <= ack.cSeqN) {
+                    for(int i = 0; i < (ack.cSeqN - window.peek().seqN + 1); i++) {
+                        window.remove();
+                    }
+                    self.set_timeout(DEFAULT_TIMEOUT);
+                } else if (lastGoBack != ack.cSeqN) {
                     goBackN(ack.cSeqN);
-                } else {
-                    self.set_timeout((sentPackages.remove().now - now) + 1000);
                 }
                 break;
 
             case FINISHING:
-                tuple = sentPackages.peek();
-
-                if(tuple.seqN > ack.cSeqN && lastRollBack != ack.cSeqN) {
+                if(window.peek().seqN <= ack.cSeqN) {
+                    window.remove();
+                    state = State.FINISHED;
+                } else if (lastGoBack != ack.cSeqN){
                     state = State.UPLOADING;
                     goBackN(ack.cSeqN);
-                } else {
-                    sentPackages.remove();
-                    state = State.FINISHED;
+                }
+                break;
+
+            case FINISHED:
+                if(ack.cSeqN == lastSeqNumber + 1) {
+                    super.log(now, "All Done. Transfer complete...");
+                    super.printReport(now);
                 }
                 break;
 
@@ -109,16 +118,16 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
         }
     }
 
-    private void goBackN(int newSeqNumber) {
-        System.out.println("==============\nWAS AT:" + seqNumber);
+    private void goBackN(int newSeqN) {
+        System.out.println("==========\nSTARTED AT: " + sequenceNumber);
 
-        seqNumber = newSeqNumber;
-        lastRollBack = newSeqNumber;
+        sequenceNumber = newSeqN;
+        lastGoBack = sequenceNumber;
 
-        System.out.println("WENT BACK TO: " + seqNumber + "\n==============");
+        System.out.println("JUMPED TO: " + sequenceNumber + "\n==========");
 
-        if(seqNumber == 0) state = State.BEGINNING;
-        sentPackages.clear();
+        if(sequenceNumber == 0) state = State.BEGINNING;
+        window.clear();
     }
 
     //=============================================================================
@@ -128,33 +137,38 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
      * @param now
      */
     public void sendNextPacket(int now) {
-       switch(state) {
-           case BEGINNING:
-               sentPackages.add(new Tuple(seqNumber, now));
+        FT21Packet packet;
 
-               super.sendPacket(now, RECEIVER, new FT21_UploadPacket(file.getName()));
+        switch(state) {
+           case BEGINNING:
+               packet = new FT21_UploadPacket(file.getName());
+
+               super.sendPacket(now, RECEIVER, packet);
                self.set_timeout(DEFAULT_TIMEOUT);
                state = State.UPLOADING;
                break;
 
            case UPLOADING:
-               seqNumber++;
-               sentPackages.add(new Tuple(seqNumber, now));
+               sequenceNumber++;
+               packet = readData(sequenceNumber);
 
-               super.sendPacket(now, RECEIVER, readData(seqNumber));
+               super.sendPacket(now, RECEIVER, packet);
 
-               if (seqNumber == lastSeqNumber)
+               if (sequenceNumber == lastSeqNumber)
                    state = State.FINISHING;
                break;
 
            case FINISHING:
-               sentPackages.add(new Tuple(seqNumber, now));
+               sequenceNumber++;
+               packet = new FT21_FinPacket(sequenceNumber);
 
-               super.sendPacket(now, RECEIVER, new FT21_FinPacket(seqNumber));
+               super.sendPacket(now, RECEIVER, packet);
                break;
 
            default:
        }
+
+        window.add(new Tuple(sequenceNumber, now));
     }
 
 
