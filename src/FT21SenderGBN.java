@@ -3,11 +3,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import cnss.simulator.Node;
-import ft21.FT21AbstractSenderApplication;
-import ft21.FT21_DataPacket;
-import ft21.FT21_UploadPacket;
+import ft21.*;
 
 public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
@@ -17,23 +16,25 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     private static final int DEFAULT_TIMEOUT = 1000;
     private final int RECEIVER = 1;
+    private final int N = 3;
 
-    private Queue<Tuple> sentPackages;
+    private Queue<FT21Packet> window;
 
     private File file;
+    private String filename;
     private RandomAccessFile rFile;
     private int blocksize, windowsize;
+    private int lastRewind;
+    private int nextSeqN, maxSeqN;
+    private int lastACK, last;
+
 
     private State state;
-
-    record Tuple(int seqN, int now) {
-    };
 
     public FT21SenderGBN() {
         super(true, "FT21SenderGBN");
     }
 
-    //TODO: Still unfinished
     @Override
     public int initialise(int now, int node_id, Node nodeObj, String[] args) {
         try {
@@ -41,50 +42,48 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
             this.file = new File(args[0]);
             this.rFile = new RandomAccessFile(file, "r");
+            this.filename = file.getName();
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
+            this.nextSeqN = 0;
+            this.maxSeqN = (int) file.length()/blocksize;
+            this.lastACK = 0;
+            this.state = State.BEGINNING;
+            this.window = new LinkedBlockingQueue<>(N);
 
-            this.sentPackages = new LinkedList<Tuple>();
-
-            state = State.BEGINNING;
         } catch(IOException e) {
             throw new Error("File not found");
         }
-
+        sendNextPacket(now);
         return 1;
     }
 
-    public void on_clock_tick(int now) {
-        boolean canSend = sentPackages.size() == windowsize
-                || (now - sentPackages.peek().now) > DEFAULT_TIMEOUT;
 
-        if(state != State.FINISHED && canSend)
+    public void on_clock_tick(int now) {
+        if (state == State.UPLOADING && nextSeqN < maxSeqN)
             sendNextPacket(now);
     }
 
     public void sendNextPacket(int now) {
-       switch(state) {
-           case BEGINNING:
-               super.sendPacket(now, RECEIVER, new FT21_UploadPacket(file));
-               break;
 
-           case UPLOADING:
-               super.sendPacker(now, RECEIVER, new FT21_DataPacket())
-               break;
+        switch (state) {
+            case BEGINNING:
+                super.sendPacket(now, RECEIVER, new FT21_UploadPacket(file.getName()));
+                break;
+            case UPLOADING:
+                
+                super.sendPacket(now, RECEIVER, readData(nextSeqN));
+                break;
+            case FINISHING:
+                super.sendPacket(now, RECEIVER, new FT21_FinPacket(maxSeqN));
+                break;
+            case FINISHED:
+        }
 
-           case FINISHING:
-               break;
-
-           default:
-               break;
-       }
+        last = now;
     }
 
     public FT21_DataPacket readData(int seqN) {
-        try {
-
-        } catch (IOException e) {
-            throw new IOException("Failed to read file");
-        }
+        return null;
     }
 }
