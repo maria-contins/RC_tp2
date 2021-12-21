@@ -44,7 +44,7 @@ public class FT21SenderSW extends FT21AbstractSenderApplication {
 
 	public void on_clock_tick(int now) {
 		boolean canSend = lastPacketSent < 0 || (now - lastPacketSent) > TIMEOUT;
-		
+
 		if (state != State.FINISHED && canSend)
 			sendNextPacket(now);
 		
