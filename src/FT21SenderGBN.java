@@ -63,10 +63,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     public void on_clock_tick(int now) {
-        boolean canSend = sentPackages.size() <= windowsize
-                || (now - sentPackages.peek().now) > DEFAULT_TIMEOUT;
-
-        if(state != State.FINISHED && canSend)
+        if(state != State.FINISHED && sentPackages.size() <= windowsize)
             sendNextPacket(now);
     }
 
@@ -80,23 +77,30 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
+        Tuple tuple;
+
         switch(state) {
             case UPLOADING:
-                Tuple tuple = sentPackages.remove();
+                tuple = sentPackages.remove();
 
                 if(tuple.seqN > ack.cSeqN) {
                     goBackN(ack.cSeqN);
                 } else {
-                    int oldestPacketSent = tuple.now;
+                    int oldestPacketSent = sentPackages.peek().now;
 
                     self.set_timeout((oldestPacketSent - now) + 1000);
                 }
                 break;
 
             case FINISHING:
-                super.log(now, "All Done. Transfer complete...");
-                super.printReport(now);
-                state = State.FINISHED;
+                tuple = sentPackages.remove();
+
+                if(tuple.seqN > ack.cSeqN) {
+                    state = State.UPLOADING;
+                    goBackN(ack.cSeqN);
+                } else {
+                    state = State.FINISHED;
+                }
                 break;
 
             default:
@@ -104,8 +108,11 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
     }
 
     private void goBackN(int newSeqNumber) {
-       //seqNumber = sentPackages.remove().seqN;
+        System.out.println("==============\nWAS AT:" + seqNumber);
+
         seqNumber = newSeqNumber;
+
+        System.out.println("WENT BACK TO: " + seqNumber + "\n==============");
 
         if(seqNumber == 0) state = State.BEGINNING;
         sentPackages.clear();
@@ -133,7 +140,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
                super.sendPacket(now, RECEIVER, readData(seqNumber));
 
-               if (seqNumber > lastSeqNumber)
+               if (seqNumber == lastSeqNumber)
                    state = State.FINISHING;
                break;
 
@@ -158,7 +165,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
      */
     private FT21_DataPacket readData(int seqNumber) {
         try {
-            rFile.seek(blocksize * seqNumber);
+            rFile.seek(blocksize * (seqNumber - 1));
 
             byte[] data = new byte[blocksize];
             int size = rFile.read(data);
