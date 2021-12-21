@@ -22,6 +22,8 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
     private RandomAccessFile rFile;
     private int blocksize, windowsize;
 
+    private int lastRollBack;
+
     private int seqNumber;
     private int lastSeqNumber;
 
@@ -50,6 +52,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
             state = State.BEGINNING;
             seqNumber = 0;
+            lastRollBack = 0;
 
         } catch(IOException e) {
             throw new Error("File not found");
@@ -81,24 +84,23 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
         switch(state) {
             case UPLOADING:
-                tuple = sentPackages.remove();
+                tuple = sentPackages.peek();
 
-                if(tuple.seqN > ack.cSeqN) {
+                if(tuple.seqN > ack.cSeqN && lastRollBack != ack.cSeqN) {
                     goBackN(ack.cSeqN);
                 } else {
-                    int oldestPacketSent = sentPackages.peek().now;
-
-                    self.set_timeout((oldestPacketSent - now) + 1000);
+                    self.set_timeout((sentPackages.remove().now - now) + 1000);
                 }
                 break;
 
             case FINISHING:
-                tuple = sentPackages.remove();
+                tuple = sentPackages.peek();
 
-                if(tuple.seqN > ack.cSeqN) {
+                if(tuple.seqN > ack.cSeqN && lastRollBack != ack.cSeqN) {
                     state = State.UPLOADING;
                     goBackN(ack.cSeqN);
                 } else {
+                    sentPackages.remove();
                     state = State.FINISHED;
                 }
                 break;
@@ -111,6 +113,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
         System.out.println("==============\nWAS AT:" + seqNumber);
 
         seqNumber = newSeqNumber;
+        lastRollBack = newSeqNumber;
 
         System.out.println("WENT BACK TO: " + seqNumber + "\n==============");
 
