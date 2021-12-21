@@ -83,7 +83,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
-        super.on_receive_ack(now, src, ack);
 
         switch(state) {
             case UPLOADING:
@@ -99,7 +98,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
             case FINISHING:
                 if(window.peek().seqN <= ack.cSeqN) {
-                    window.remove();
                     state = State.FINISHED;
                 } else if (lastGoBack != ack.cSeqN){
                     state = State.UPLOADING;

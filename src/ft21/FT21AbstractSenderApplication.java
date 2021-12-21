@@ -72,7 +72,7 @@ abstract public class FT21AbstractSenderApplication extends AbstractApplicationA
 	}
 
 	protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
-		this.logPacket( now, ack);
+		this.logPacket(now, ack);
 	}
 	
 	protected void logPacket( int now, FT21Packet pkt ) {
