@@ -3,8 +3,7 @@ package ft21;
 public class FT21_DataPacket extends FT21Packet {
 	public final int seqN;
 	public final byte[] data;
-	public boolean opDataAcked;
-	public int opDataTimeStarted;
+	public final int trueSeq;
 	
 	public FT21_DataPacket(int seqN, byte[] data) {
 		this(seqN, data, data.length);
@@ -17,28 +16,22 @@ public class FT21_DataPacket extends FT21Packet {
 		super.putBytes(data, datalen);
 		this.seqN = seqN;
 		this.data = data;
-		this.opDataAcked = false;
-		this.opDataTimeStarted = -1;
+		this.trueSeq = -1;
+	}
+
+	public FT21_DataPacket(int seqN, byte[] data, int datalen,  int trueSeq) {
+		super(PacketType.DATA);
+		super.putInt(seqN);
+		super.putByte( Integer.BYTES );
+		super.putInt(trueSeq);
+		super.putBytes(data, datalen);
+		this.seqN = seqN;
+		this.data = data;
+		this.trueSeq = trueSeq;
 	}
 
 	
 	public String toString() {
-		return String.format("DATA<%d, len: %d>", seqN, data.length);
-	}
-
-	public void setACK() {
-		opDataAcked = !opDataAcked;
-	}
-
-	public boolean getACK() {
-		return opDataAcked;
-	}
-
-	public void setTime(int n) {
-		opDataTimeStarted = n;
-	}
-
-	public int getTime() {
-		return opDataTimeStarted;
+		return String.format("DATA<%d, len: %d>", trueSeq, data.length);
 	}
 }

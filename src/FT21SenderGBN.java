@@ -12,12 +12,12 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     enum State {
         BEGINNING, BLOCKED, UPLOADING, FINISHING, FINISHED
-    };
+    }
 
     private static final int DEFAULT_TIMEOUT = 1000;
     private final int RECEIVER = 1;
 
-    record Tuple(int seqN, int now){};
+    record Tuple(int seqN, int now){}
 
     private Queue<Tuple> window;
 
