@@ -13,7 +13,7 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
     private static final int DEFAULT_TIMEOUT = 1000;
 
     private SortedMap<Integer,FT21_DataPacket> window;
-    private Queue<Integer> timerSequence;
+    private LinkedHashMap<Integer,FT21_DataPacket> timerSequence;
     private State state;
     private int blocksize, windowsize, lastSeqNumber, windowBase, latestSeqN;
     private File file;
@@ -36,6 +36,7 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
             this.window= new TreeMap<>();
+            this.timerSequence = new LinkedHashMap<>();
             this.lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
             this.latestSeqN = 0;
             this.windowBase = 0;
@@ -60,6 +61,7 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
                 FT21_DataPacket dPacket = readData(++latestSeqN);
                 super.sendPacket(now, RECEIVER, dPacket);
                 window.put(latestSeqN,dPacket);
+                self.set_timeout(DEFAULT_TIMEOUT);
                 if (latestSeqN == lastSeqNumber)
                     state = State.FINISHING;
                 break;
@@ -86,6 +88,7 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
                     while (window.size() > 0 && (window.get(window.firstKey())).getACK()) {
                         window.remove(window.firstKey());
                     }
+                    self.set_timeout(DEFAULT_TIMEOUT);
                 } else
                     // ignore and loop again
                 break;
@@ -105,13 +108,14 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
 
     @Override
     public void on_clock_tick(int now) {
-        if(state == State.UPLOADING && window.size() <= windowsize) {
+        if (state == State.UPLOADING && window.size() < windowsize) {
             sendNextPacket(now);
         }
     }
 
     @Override
     public void on_timeout(int now) {  // in the SW cases it sends packet and resets timer only
+        super.log(now, "reeeeeeeeeeeeeeee");
         if(state == State.BEGINNING) {
             FT21_Packet packet = new FT21_Packet(file.getName());
             super.sendPacket(now, RECEIVER, packet);
@@ -121,11 +125,13 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
             super.sendPacket(now, RECEIVER, fPacket);
             self.set_timeout(DEFAULT_TIMEOUT);
         } else { // UPLOADING
-            assert timerSequence.size() != 0;
-            if (window.containsKey(timerSequence.peek())) {
-                super.sendPacket(now, RECEIVER, readData(timerSequence.peek()));
-                timerSequence.remove();
-                self.set_timeout(DEFAULT_TIMEOUT - now + window.get(timerSequence.peek()).getTime());
+            if (!timerSequence.isEmpty()) {
+                int seqN = timerSequence.entrySet().iterator().next().getKey();
+            if (window.containsKey(seqN)) {
+                super.sendPacket(now, RECEIVER, readData(seqN));
+                timerSequence.remove(seqN);
+                self.set_timeout(DEFAULT_TIMEOUT - now + window.get(seqN).getTime());
+            }
             }
        }
     }
@@ -144,4 +150,3 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
     }
 
 }
-

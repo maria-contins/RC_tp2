@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d53ddfc-ba52-47af-8071-4132f79184fa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RC2021_tp2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RC2021_tp2.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/config-2.3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config-2.3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/config-2.4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config-2.4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FT21SenderGBN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FT21SenderGBN_FR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FT21SenderSR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FT21SenderSR.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
