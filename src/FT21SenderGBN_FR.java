@@ -7,11 +7,25 @@ import java.io.RandomAccessFile;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * As by the book provided for this course, "Fundamentos de Redes de Computadores, ilustrados com base na internet e nos protocolos TCP/IP" by Professor José Legatheaux Martins
+ *
+ * " O protocolo GBN (Go-Back-N) é i, protocolo de janela deslizante em que a janela do emissor tem dimensão N e a janela do receptor tem (pelo menos) dimensão 1.
+ * O emissor desde que tenha pacotes para enviar, e enquanto a condição sobre a dimensão da janela de emissão ser <= N for respeitada, emite pacotes uns atrás dos outros."
+ * [...]
+ * " Quando dispara um alarme no emissor (timeout) este volta a reemitir os pacotes que estão na janela, começando pelo que tem o número de sequência mais baixo, pois
+ * este é o pacote em trânsito mais antigo, e para poder voltar a colocar os pacotes pela ordem é necessário recomeçar por este e reemitir a janela"
+ *
+ * It provides a good overview of the inner workings of the sender side of a GBN algorithm. As no implementation constraints indicated otherwise, and as
+ * the book also refers "é possível introduzir uma optimização aquando da receção de um ACK com número de sequência repetido."
+ *
+ * We decided on this optimization as to implement the best version of the algorithm.
+ */
 
-public class FT21SenderGBN extends FT21AbstractSenderApplication {
+public class FT21SenderGBN_FR extends FT21AbstractSenderApplication {
 
     enum State {
-        BEGINNING, BLOCKED, UPLOADING, FINISHING, FINISHED
+        BEGINNING, UPLOADING, FINISHING, FINISHED
     };
 
     private static final int DEFAULT_TIMEOUT = 1000;
@@ -33,8 +47,8 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     private State state;
 
-    public FT21SenderGBN() {
-        super(true, "FT21SenderGBN");
+    public FT21SenderGBN_FR() {
+        super(true, "FT21SenderGBN_FR");
     }
 
     @Override
@@ -48,7 +62,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
             this.windowsize = Integer.parseInt(args[2]);
 
             this.window = new LinkedList<>();
-            window.add(new Tuple(-1, now));
 
             lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
             state = State.BEGINNING;
@@ -67,34 +80,24 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     public void on_clock_tick(int now) {
-        if (Math.abs(now - (window.peek() == null ? now : window.peek().now)) <= 1000) {
-            if (window.size() <= windowsize) {
-                sendNextPacket(now);
-            }
-        } else {
-            on_timeout(now);
+        if(state != State.FINISHED && window.size() <= windowsize) {
+            sendNextPacket(now);
         }
     }
 
     @Override
     public void on_timeout(int now) {
-        if(state != State.FINISHED) {
-            assert window.peek() != null;
-            goBackN(window.peek().seqN);
+        //super.on_timeout(now);
+        assert window.peek() != null;
+        goBackN(window.peek().seqN);
 
-            if (state != State.FINISHED && window.size() <= windowsize)
-                sendNextPacket(now);
-        }
+        if(state != State.FINISHED && window.size() <= windowsize)
+            sendNextPacket(now);
     }
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
         switch(state) {
-            case BLOCKED:
-                window.clear();
-                state = State.UPLOADING;
-                break;
-
             case UPLOADING:
                 assert window.peek() != null;
                 if(window.peek().seqN <= ack.cSeqN) {
@@ -102,16 +105,18 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
                         window.remove();
                     }
                     self.set_timeout(DEFAULT_TIMEOUT);
+                } else if (lastGoBack != ack.cSeqN) {
+                    goBackN(ack.cSeqN);
                 }
                 break;
 
             case FINISHING:
                 assert window.peek() != null;
-
-                if(window.peek().seqN >= ack.cSeqN)
+                if(window.peek().seqN <= ack.cSeqN) {
+                    state = State.FINISHED;
+                } else if (lastGoBack != ack.cSeqN){
                     state = State.UPLOADING;
-                else if (ack.cSeqN == lastSeqNumber) {
-                    sendNextPacket(now);
+                    goBackN(ack.cSeqN);
                 }
                 break;
 
@@ -129,7 +134,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
     private void goBackN(int newSeqN) {
         System.out.println("==========\nSTARTED AT: " + sequenceNumber);
 
-        sequenceNumber = newSeqN - 1;
+        sequenceNumber = newSeqN;
         lastGoBack = sequenceNumber;
 
         System.out.println("JUMPED TO: " + sequenceNumber + "\n==========");
@@ -153,8 +158,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
                super.sendPacket(now, RECEIVER, packet);
                self.set_timeout(DEFAULT_TIMEOUT);
-
-               state = State.BLOCKED;
+               state = State.UPLOADING;
                break;
 
            case UPLOADING:
@@ -163,9 +167,8 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
                super.sendPacket(now, RECEIVER, packet);
 
-               if (sequenceNumber == lastSeqNumber) {
+               if (sequenceNumber == lastSeqNumber)
                    state = State.FINISHING;
-               }
                break;
 
            case FINISHING:
@@ -173,9 +176,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
                packet = new FT21_FinPacket(sequenceNumber);
 
                super.sendPacket(now, RECEIVER, packet);
-
-               window.clear();
-               state = State.FINISHED;
                break;
 
            default:

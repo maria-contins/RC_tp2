@@ -8,7 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RC2021_tp2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RC2021_tp2.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/config-2.3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config-2.3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/config-2.4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config-2.4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FT21SenderGBN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FT21SenderGBN_FR.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,17 +62,32 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2\cnss\src" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2\src" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2\cnss" />
       <recent name="C:\Users\Duda\Documents\RC\RC_tp2\cnss" />
-      <recent name="C:\Users\Duda\Documents\RC\RC_tp2\RC2021-tp2\cnss\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="RC_tp2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -90,6 +109,7 @@
       <workItem from="1640088342986" duration="15177000" />
       <workItem from="1640130503531" duration="13000" />
       <workItem from="1640175829593" duration="854000" />
+      <workItem from="1640184119376" duration="5051000" />
     </task>
     <servers />
   </component>
