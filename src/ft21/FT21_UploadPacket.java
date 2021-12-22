@@ -10,27 +10,9 @@ public class FT21_UploadPacket extends FT21Packet {
         super.putByte(NO_OPTIONAL_DATA_LEN);
         this.filename = filename;
         super.putString(filename);
-        this.opDataAcked = false;
-        this.opDataTimeStarted = -1;
     }
 
     public String toString() {
         return String.format("UPLOAD<%s>", filename);
-    }
-
-    public void setACK() {
-        opDataAcked = !opDataAcked;
-    }
-
-    public boolean getACK() {
-        return opDataAcked;
-    }
-
-    public void setTime(int n) {
-        opDataTimeStarted = n;
-    }
-
-    public int getTime() {
-        return opDataTimeStarted;
     }
 }

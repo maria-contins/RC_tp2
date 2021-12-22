@@ -7,54 +7,53 @@ import java.io.RandomAccessFile;
 import java.util.*;
 
 
-public class FT21SenderSR extends FT21SenderGBN {
+public class FT21SenderSR extends FT21AbstractSenderApplication {
 
     private final int RECEIVER = 1;
     private static final int DEFAULT_TIMEOUT = 1000;
 
-    private SortedMap<Integer,Boolean> window2;
-    private SortedMap<Integer,Integer> timers; // might not need "now" value in there
-    private SortedMap<Integer,FT21Packet> window;
+    private SortedMap<Integer,FT21_DataPacket> window;
+    private Queue<Integer> timerSequence;
     private State state;
     private int blocksize, windowsize, lastSeqNumber, windowBase, latestSeqN;
     private File file;
     private RandomAccessFile rFile;
 
+    enum State {
+        BEGINNING, UPLOADING, FINISHING, FINISHED
+    };
+
     public FT21SenderSR() {
-        super();
+        super(true, "FT21SenderSr");
     }
 
     @Override
     public int initialise(int now, int node_id, Node nodeObj, String[] args) {
         try {
+            super.initialise(now, node_id, nodeObj, args);
             this.file = new File(args[0]);
             this.rFile = new RandomAccessFile(file, "r");
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
-            this.window2 = new TreeMap<>();
-            this.timers = new TreeMap<>();
+            this.window= new TreeMap<>();
             this.lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
             this.latestSeqN = 0;
             this.windowBase = 0;
             this.state = State.BEGINNING;
 
-
+            sendNextPacket(now); // bc on_clock_tick does nothing while in beginning state
         } catch(IOException e) {
             throw new Error("File not found");
         }
         return 1;
     }
 
-    @Override
-    public void sendNextPacket(int now) {
-
+    private void sendNextPacket(int now) {
         switch(state) {
             case BEGINNING:
                 FT21_Packet packet = new FT21_Packet(file.getName());
                 super.sendPacket(now, RECEIVER, packet);
-                window.put(latestSeqN,packet);
-                setTimer(now,0);
-                state = State.UPLOADING;
+                self.set_timeout(DEFAULT_TIMEOUT);
                 break;
 
             case UPLOADING:
@@ -67,8 +66,8 @@ public class FT21SenderSR extends FT21SenderGBN {
 
             case FINISHING:
                 FT21_FinPacket fPacket = new FT21_FinPacket(++latestSeqN);
-                window.put(latestSeqN,fPacket);
                 super.sendPacket(now, RECEIVER, fPacket);
+                self.set_timeout(DEFAULT_TIMEOUT);
                 break;
             default:
         }
@@ -76,12 +75,15 @@ public class FT21SenderSR extends FT21SenderGBN {
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
-        switch(state) { // add nack case? -> end timeout of the seqN refered (on_timeout)
-            case UPLOADING:  // just don't know how to identify nacks
+        switch(state) {
+            case BEGINNING:
+                state = State.UPLOADING;
+                sendNextPacket(now);
+            case UPLOADING:
                 if (window.containsKey(ack.cSeqN)) {
-                    ((FT21_UploadPacket)window.get(ack.cSeqN)).setACK();
-                    ((FT21_UploadPacket)window.get(ack.cSeqN)).setTime(-1);
-                    while (window.size() > 0 && ((FT21_UploadPacket)window.get(window.firstKey())).getACK()) {
+                    window.get(ack.cSeqN).setACK();
+                    window.get(ack.cSeqN).setTime(-1);
+                    while (window.size() > 0 && (window.get(window.firstKey())).getACK()) {
                         window.remove(window.firstKey());
                     }
                 } else
@@ -101,17 +103,31 @@ public class FT21SenderSR extends FT21SenderGBN {
         }
     }
 
-    public void on_timeout(int now, int seqN) {
-        if(window.containsKey(seqN)) {
-            super.sendPacket(now, RECEIVER, readData(seqN));
-            setTimer(now,seqN);
-
-       }
+    @Override
+    public void on_clock_tick(int now) {
+        if(state == State.UPLOADING && window.size() <= windowsize) {
+            sendNextPacket(now);
+        }
     }
 
-    private void setTimer(int now, int seqN) {   //TODO (???)
-        self.set_timeout(DEFAULT_TIMEOUT);
-        window.get(seqN); // cast????
+    @Override
+    public void on_timeout(int now) {  // in the SW cases it sends packet and resets timer only
+        if(state == State.BEGINNING) {
+            FT21_Packet packet = new FT21_Packet(file.getName());
+            super.sendPacket(now, RECEIVER, packet);
+            self.set_timeout(DEFAULT_TIMEOUT);
+        } else if(state == State.FINISHING) {
+            FT21_FinPacket fPacket = new FT21_FinPacket(++latestSeqN);
+            super.sendPacket(now, RECEIVER, fPacket);
+            self.set_timeout(DEFAULT_TIMEOUT);
+        } else { // UPLOADING
+            assert timerSequence.size() != 0;
+            if (window.containsKey(timerSequence.peek())) {
+                super.sendPacket(now, RECEIVER, readData(timerSequence.peek()));
+                timerSequence.remove();
+                self.set_timeout(DEFAULT_TIMEOUT - now + window.get(timerSequence.peek()).getTime());
+            }
+       }
     }
 
     private FT21_DataPacket readData(int seqNumber) {

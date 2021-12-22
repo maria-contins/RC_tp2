@@ -10,8 +10,6 @@ public class FT21_FinPacket extends FT21Packet {
 		super.putInt( seqN );
 		super.putByte( NO_OPTIONAL_DATA_LEN );
 		this.seqN = seqN;
-		this.opDataAcked = false;
-		this.opDataTimeStarted = -1;
 	}
 	
 	
@@ -19,19 +17,5 @@ public class FT21_FinPacket extends FT21Packet {
 		return String.format("FIN<%d>", seqN);
 	}
 
-	public void setACK() {
-		opDataAcked = !opDataAcked;
-	}
 
-	public boolean getACK() {
-		return opDataAcked;
-	}
-
-	public void setTime(int n) {
-		opDataTimeStarted = n;
-	}
-
-	public int getTime() {
-		return opDataTimeStarted;
-	}
 }
