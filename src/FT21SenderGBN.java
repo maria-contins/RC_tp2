@@ -45,11 +45,8 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
             this.rFile = new RandomAccessFile(file, "r");
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
-
             this.window = new LinkedList<>();
-
             lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
-
             state = State.BEGINNING;
             sequenceNumber = 0;
             lastGoBack = -1;
@@ -73,8 +70,8 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     public void on_timeout(int now) {
-        super.on_timeout(now);
-
+        //super.on_timeout(now);
+        assert window.peek() != null;
         goBackN(window.peek().seqN);
 
         if(state != State.FINISHED && window.size() <= windowsize)
@@ -83,9 +80,9 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
     @Override
     protected void on_receive_ack(int now, int src, FT21_AckPacket ack) {
-
         switch(state) {
             case UPLOADING:
+                assert window.peek() != null;
                 if(window.peek().seqN <= ack.cSeqN) {
                     for(int i = 0; i < (ack.cSeqN - window.peek().seqN + 1); i++) {
                         window.remove();
@@ -97,6 +94,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
                 break;
 
             case FINISHING:
+                assert window.peek() != null;
                 if(window.peek().seqN <= ack.cSeqN) {
                     state = State.FINISHED;
                 } else if (lastGoBack != ack.cSeqN){
