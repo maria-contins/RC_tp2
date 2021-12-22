@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/ft21-classes/cnss" />
       <excludeFolder url="file://$MODULE_DIR$/ft21-classes/ft21" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
