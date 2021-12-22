@@ -1,7 +1,6 @@
 import cnss.simulator.Node;
 import ft21.FT21_AckPacket;
 import ft21.FT21_DataPacket;
-import ft21.FT21_FinPacket;
 import ft21.FT21_UploadPacket;
 
 import java.io.File;
@@ -15,8 +14,9 @@ public class FT21SenderSR extends FT21SenderGBN {
     private final int RECEIVER = 1;
     private static final int DEFAULT_TIMEOUT = 1000;
 
-    private SortedMap<Integer,Boolean> window;
+    private SortedMap<Integer,Boolean> window2;
     private SortedMap<Integer,Integer> timers; // might not need "now" value in there
+    private SortedMap<Integer,FT21_UploadPacket> window;
     private State state;
     private int blocksize, windowsize, lastSeqNumber, windowBase, latestSeqN;
     private File file;
@@ -33,7 +33,7 @@ public class FT21SenderSR extends FT21SenderGBN {
             this.rFile = new RandomAccessFile(file, "r");
             this.blocksize = Integer.parseInt(args[1]);
             this.windowsize = Integer.parseInt(args[2]);
-            this.window = new TreeMap<>();
+            this.window2 = new TreeMap<>();
             this.timers = new TreeMap<>();
             this.lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
             this.latestSeqN = 0;
@@ -47,9 +47,9 @@ public class FT21SenderSR extends FT21SenderGBN {
         return 1;
     }
 
-    @Override
+    @Override //TODO
     public void sendNextPacket(int now) {
-        if(latestSeqN < lastSeqNumber + 1 && window.size() > windowsize) {
+        if(latestSeqN < lastSeqNumber + 1 && window2.size() > windowsize) {
             FT21_DataPacket packet = readData(latestSeqN);
             // add rest
         }
@@ -60,9 +60,9 @@ public class FT21SenderSR extends FT21SenderGBN {
         switch(state) { // add nack case? -> end timeout of the seqN refered (on_timeout)
             case UPLOADING:  // just don't know how to identify nacks
                 if (window.containsKey(ack.cSeqN)) {
-                    window.replace(ack.cSeqN, true);
-                    timers.remove(ack.cSeqN);
-                    while (window.size() > 0 && window.get(window.firstKey())) {
+                    window.get(ack.cSeqN).setAcked();
+                    window.get(ack.cSeqN).setTimeStarted(-1);
+                    while (window.size() > 0 && window.get(window.firstKey()).getAckedVal()) {
                         window.remove(window.firstKey());
                     }
                 } else
@@ -78,26 +78,23 @@ public class FT21SenderSR extends FT21SenderGBN {
                     super.printReport(now);
                 }
                 break;
-
             default:
         }
-
-
     }
 
     public void on_timeout(int now, int seqN) {
         if(window.containsKey(seqN)) {
             super.sendPacket(now, RECEIVER, readData(seqN));
-            timers.put(seqN, setTimer(now));
-        }
+            setTimer(now,seqN);
+
+       }
     }
 
-    private int setTimer(int now) { // the first to time is always lowest?
+    private void setTimer(int now, int seqN) {   //TODO (???)
         self.set_timeout(DEFAULT_TIMEOUT);
-        return now;
+        window.get(seqN).setTimeStarted(now);
     }
 
-    // couldn't get from super??
     private FT21_DataPacket readData(int seqNumber) {
         try {
             rFile.seek((long) blocksize * (seqNumber - 1));
