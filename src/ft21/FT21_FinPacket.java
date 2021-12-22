@@ -14,4 +14,6 @@ public class FT21_FinPacket extends FT21Packet {
 	public String toString() {
 		return String.format("FIN<%d>", seqN);
 	}
+
+
 }
