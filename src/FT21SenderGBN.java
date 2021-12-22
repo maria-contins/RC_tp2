@@ -137,7 +137,7 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
 
         switch(state) {
            case BEGINNING:
-               packet = new FT21_UploadPacket(file.getName());
+               packet = new FT21_Packet(file.getName());
 
                super.sendPacket(now, RECEIVER, packet);
                self.set_timeout(DEFAULT_TIMEOUT);

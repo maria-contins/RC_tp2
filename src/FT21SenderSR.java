@@ -1,7 +1,5 @@
 import cnss.simulator.Node;
-import ft21.FT21_AckPacket;
-import ft21.FT21_DataPacket;
-import ft21.FT21_UploadPacket;
+import ft21.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +14,7 @@ public class FT21SenderSR extends FT21SenderGBN {
 
     private SortedMap<Integer,Boolean> window2;
     private SortedMap<Integer,Integer> timers; // might not need "now" value in there
-    private SortedMap<Integer,FT21_UploadPacket> window;
+    private SortedMap<Integer,FT21Packet> window;
     private State state;
     private int blocksize, windowsize, lastSeqNumber, windowBase, latestSeqN;
     private File file;
@@ -47,11 +45,32 @@ public class FT21SenderSR extends FT21SenderGBN {
         return 1;
     }
 
-    @Override //TODO
+    @Override
     public void sendNextPacket(int now) {
-        if(latestSeqN < lastSeqNumber + 1 && window2.size() > windowsize) {
-            FT21_DataPacket packet = readData(latestSeqN);
-            // add rest
+
+        switch(state) {
+            case BEGINNING:
+                FT21_Packet packet = new FT21_Packet(file.getName());
+                super.sendPacket(now, RECEIVER, packet);
+                window.put(latestSeqN,packet);
+                setTimer(now,0);
+                state = State.UPLOADING;
+                break;
+
+            case UPLOADING:
+                FT21_DataPacket dPacket = readData(++latestSeqN);
+                super.sendPacket(now, RECEIVER, dPacket);
+                window.put(latestSeqN,dPacket);
+                if (latestSeqN == lastSeqNumber)
+                    state = State.FINISHING;
+                break;
+
+            case FINISHING:
+                FT21_FinPacket fPacket = new FT21_FinPacket(++latestSeqN);
+                window.put(latestSeqN,fPacket);
+                super.sendPacket(now, RECEIVER, fPacket);
+                break;
+            default:
         }
     }
 
@@ -60,9 +79,9 @@ public class FT21SenderSR extends FT21SenderGBN {
         switch(state) { // add nack case? -> end timeout of the seqN refered (on_timeout)
             case UPLOADING:  // just don't know how to identify nacks
                 if (window.containsKey(ack.cSeqN)) {
-                    window.get(ack.cSeqN).setAcked();
-                    window.get(ack.cSeqN).setTimeStarted(-1);
-                    while (window.size() > 0 && window.get(window.firstKey()).getAckedVal()) {
+                    ((FT21_UploadPacket)window.get(ack.cSeqN)).setACK();
+                    ((FT21_UploadPacket)window.get(ack.cSeqN)).setTime(-1);
+                    while (window.size() > 0 && ((FT21_UploadPacket)window.get(window.firstKey())).getACK()) {
                         window.remove(window.firstKey());
                     }
                 } else
@@ -92,7 +111,7 @@ public class FT21SenderSR extends FT21SenderGBN {
 
     private void setTimer(int now, int seqN) {   //TODO (???)
         self.set_timeout(DEFAULT_TIMEOUT);
-        window.get(seqN).setTimeStarted(now);
+        window.get(seqN); // cast????
     }
 
     private FT21_DataPacket readData(int seqNumber) {

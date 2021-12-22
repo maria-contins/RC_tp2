@@ -53,7 +53,7 @@ public class FT21SenderSW extends FT21AbstractSenderApplication {
 	private void sendNextPacket(int now) {
 		switch (state) {
 		case BEGINNING:
-			super.sendPacket(now, RECEIVER, new FT21_UploadPacket(file.getName()));
+			super.sendPacket(now, RECEIVER, new FT21_Packet(file.getName()));
 			break;
 		case UPLOADING:
 			super.sendPacket(now, RECEIVER, readDataPacket(file, nextPacketSeqN));
