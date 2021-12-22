@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+#Binaries and result files
+ft21-classes/*
+results.txt
+copy-of-earth.jpg
+.idea/*
+
 # Log file
 *.log
 
