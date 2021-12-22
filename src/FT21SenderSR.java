@@ -92,28 +92,7 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
         switch(state) {
             case BEGINNING:
                 state = State.UPLOADING;
-                break;
-
-            case UPLOADING:
-                acked.add(ack.trueSeq);
-                timerSequence.removeFirstOccurrence(ack.trueSeq);
-
-                if(acked.size() == windowsize) {
-                    System.out.print("\n[");
-                    for(int k: acked) {
-                        System.out.print(k + ", ");
-                    }
-                    System.out.print("]\n");
-                    for (int i = 0; i < acked.size(); i++) {
-                        window.remove(acked.getFirst());
-                        acked.removeFirst();
-                    }
-                }
-            break;
-
-            case FINISHING:
-                if(ack.trueSeq == window.lastKey())
-                    state = State.FINISHED;
+                removeTimer(ack.cSeqN);
                 break;
 
             case FINISHED:
@@ -121,12 +100,43 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
                     super.log(now, "All Done. Transfer complete...");
                     super.printReport(now);
                 }
-                break;
+            case FINISHING:
+                if(ack.trueSeq == window.lastKey())
+                    state = State.FINISHED;
+            case UPLOADING:
+                System.out.println("   ========     " + ack.trueSeq);
+                acked.add(ack.trueSeq);
+
+
+                System.out.print("\nWINDOW : [ ");
+                for(int i: window.keySet()) {
+                    System.out.print(i + " ");
+                }
+                System.out.print("]");
+
+                System.out.print("\nACKED : [ ");
+                for(int i: acked) {
+                    System.out.print(i + " ");
+                }
+                System.out.print("]\n");
+
+                int sz = acked.size();
+                if(ack.trueSeq == window.firstKey()) {
+                    acked.sort(Integer::compare);
+
+                    for(int i = 0; i < sz; i++) {
+                        if(acked.getFirst() == ack.trueSeq + i) {
+                            window.remove(acked.getFirst());
+                            acked.removeFirst();
+                        }
+                        else break;
+                    }
+                }
+            break;
 
             default:
         }
-
-        removeTimer(ack.cSeqN);
+        removeTimer(ack.trueSeq);
     }
 
     private void removeTimer(int cSeqN) {
@@ -151,27 +161,22 @@ public class FT21SenderSR extends FT21AbstractSenderApplication {
 
     @Override
     public void on_timeout(int now) {  // in the SW cases it sends packet and resets timer only
-        System.out.println("timeout");
+        System.out.println("timeout " + timerSequence.peekFirst().seqN);
         switch(state) {
 
             case BEGINNING:
-            case FINISHING:
                 sendNextPacket(now);
                 break;
 
+            case FINISHED:
+            case FINISHING:
             case UPLOADING:
                 assert timerSequence.size() != 0;
-                System.out.print(timerSequence.peek().seqN);
-                System.out.print("\n[");
-                for(int k: acked) {
-                    System.out.print(k + ", ");
-                }
                 if (window.containsKey(timerSequence.peek().seqN)) {
-                    sendPacket(now, RECEIVER, readData(timerSequence.remove().seqN));
+                    sendPacket(now, RECEIVER, readData(timerSequence.peek().seqN));
+                    timerSequence.addLast(new Tuple(timerSequence.remove().seqN, now));
                 }
-                break;
-
-            default:
+            break;
         }
     }
 
