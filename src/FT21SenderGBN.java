@@ -26,7 +26,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
     private int blocksize;
     private int windowsize;
 
-    private int lastGoBack;
 
     private int sequenceNumber;
     private int lastSeqNumber;
@@ -48,12 +47,10 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
             this.windowsize = Integer.parseInt(args[2]);
 
             this.window = new LinkedList<>();
-            window.add(new Tuple(-1, now));
 
             lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
             state = State.BEGINNING;
             sequenceNumber = 0;
-            lastGoBack = -1;
 
         } catch(IOException e) {
             throw new Error("File not found");
@@ -101,13 +98,11 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
                     for(int i = 0; i < (ack.cSeqN - window.peek().seqN + 1); i++) {
                         window.remove();
                     }
-                    self.set_timeout(DEFAULT_TIMEOUT);
                 }
                 break;
 
             case FINISHING:
                 assert window.peek() != null;
-
                 if(window.peek().seqN >= ack.cSeqN)
                     state = State.UPLOADING;
                 else if (ack.cSeqN == lastSeqNumber) {
@@ -130,7 +125,6 @@ public class FT21SenderGBN extends FT21AbstractSenderApplication {
         System.out.println("==========\nSTARTED AT: " + sequenceNumber);
 
         sequenceNumber = newSeqN - 1;
-        lastGoBack = sequenceNumber;
 
         System.out.println("JUMPED TO: " + sequenceNumber + "\n==========");
 
