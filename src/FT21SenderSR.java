@@ -18,7 +18,7 @@ public class FT21SenderSR extends FT21SenderGBN {
     private SortedMap<Integer,Boolean> window;
     private SortedMap<Integer,Integer> timers; // might not need "now" value in there
     private State state;
-    private int blocksize, windowsize, lastSeqNumber, windowBase;
+    private int blocksize, windowsize, lastSeqNumber, windowBase, latestSeqN;
     private File file;
     private RandomAccessFile rFile;
 
@@ -36,6 +36,7 @@ public class FT21SenderSR extends FT21SenderGBN {
             this.window = new TreeMap<>();
             this.timers = new TreeMap<>();
             this.lastSeqNumber = (int) Math.ceil((double) file.length() / (double) blocksize);
+            this.latestSeqN = 0;
             this.windowBase = 0;
             this.state = State.BEGINNING;
 
@@ -44,6 +45,14 @@ public class FT21SenderSR extends FT21SenderGBN {
             throw new Error("File not found");
         }
         return 1;
+    }
+
+    @Override
+    public void sendNextPacket(int now) {
+        if(latestSeqN < lastSeqNumber + 1 && window.size() > windowsize) {
+            FT21_DataPacket packet = readData(latestSeqN);
+            // add rest
+        }
     }
 
     @Override
@@ -83,8 +92,8 @@ public class FT21SenderSR extends FT21SenderGBN {
         }
     }
 
-    private int setTimer(int now) {
-        self.set_timeout(DEFAULT_TIMEOUT); // the first to time is always lowest?
+    private int setTimer(int now) { // the first to time is always lowest?
+        self.set_timeout(DEFAULT_TIMEOUT);
         return now;
     }
 
